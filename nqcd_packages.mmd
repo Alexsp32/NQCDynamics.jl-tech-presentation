@@ -1,0 +1,12 @@
+%%{init: {'theme': 'default', 'themeVariables': { 'fontSize': '35px'}}}%%
+graph TB
+    NQCBase.jl -- Atomic structure\n definition --> NQCDynamics.jl
+    NQCBase.jl -- Basic structure\n import/export --> NQCDynamics.jl
+    NQCBase.jl --> NQCModels.jl
+    NQCBase.jl --> NQCDistributions.jl
+    NQCModels.jl -- Defined PESs --> NQCDynamics.jl
+    NQCModels.jl --> FrictionProviders.jl
+    FrictionProviders.jl -- Electronic\n friction ---> NQCDynamics.jl
+    NQCDistributions.jl -- Containers for\n initial conditions ---> NQCDynamics.jl
+    NQCDynamics.jl -- ODE problem --> DifferentialEquations.jl
+    DifferentialEquations.jl -- ODE solution --> NQCDynamics.jl

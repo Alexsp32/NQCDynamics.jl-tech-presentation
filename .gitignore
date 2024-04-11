@@ -1,0 +1,33 @@
+.DS_Store
+
+# Quarto output files
+/_book/
+/_site/
+/*_files/
+
+# Quarto cache files
+/.quarto/
+
+# Quarto temporary files
+/.quarto-temp/
+
+# Quarto project settings
+/quarto.yaml
+
+# Quarto environment files
+/.quarto-env/
+
+# Quarto logs
+/quarto.log
+
+# temporary Jupyter notebooks
+*.ipynb
+# But allow within notebooks directory
+!notebooks/*.ipynb
+
+#vscode config
+.vscode/
+
+# Preview HTML, but allow in output directory since we're outputting revealjs slides
+*.html
+!output/*.html
