@@ -1,0 +1,23 @@
+project:
+  title: "How do the NQCD packages work?"
+
+author: "Alex Spears"
+date-format: "DD.MM.YYYY"
+date: "04.06.2024"
+
+toc: true
+toc-depth: 2
+
+execute: 
+  freeze: auto
+
+format: 
+  revealjs: 
+    slideNumber: true
+    transition: slide
+    controls: true
+    progress: true
+    aspectRatio: 16:9
+    theme: [default, custom.scss]
+    logo: images/logo.svg
+    footer: "NQCD tech presentation"
