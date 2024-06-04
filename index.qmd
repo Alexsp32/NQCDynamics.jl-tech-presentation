@@ -1,0 +1,223 @@
+
+# The NQCD "ecosystem"
+
+## NQCD Packages
+```{mermaid}
+%%| label: fig-nqcd-graph
+%%| fig-responsive: true
+%%| r-stretch: true
+%%| mermaid-format: svg
+%%| file: nqcd_packages.mmd
+```
+
+::: {.notes}
+- Running nonadiabatic dynamics in Julia needs multiple packages
+- These contain different feature sets
+    - Useful to allow parts of the code to evolve separately. 
+    - Lighter since don't have to load all packages all the time. 
+- Give overview of packages. 
+:::
+
+## NQCDynamics.jl
+```{mermaid}
+%%| fig-responsive: true
+%%| r-stretch: true
+%%| mermaid-format: svg
+
+%%{init: {'theme': 'default', 'themeVariables': { 'fontSize': '16px'}}}%%
+
+graph LR
+    subgraph DifferentialEquations.jl
+        U[ODE representation for\n DifferentialEquations.jl]
+        U --> S[Solution\n object]
+    end
+    subgraph sg1 ["NQCDynamics.jl"]
+        direction LR
+        A[Atomic structure] --> U
+        P[PES] --> U
+        I[Initial conditions] --> U
+        D[Method-specific\n ODE solver] --> U
+    end
+    subgraph sg2 ["NQCDynamics.jl"]
+        direction LR
+        S --> O[Final trajectory]
+        S --> ER[Ensemble\n statistics]
+        S --> CQ[Calculated\n quantities]
+    end
+    style sg1 fill:lightblue, stroke:black;
+    style sg2 fill:lightblue, stroke:black;
+```
+
+
+---
+
+- wraps around DifferentialEquations.jl to propagate dynamics
+    - unit conversions
+    - equations of motion
+    - consistent inputs/outputs
+- turns propagated trajectories back into more "readable" form
+
+
+## Atomic structure: `NQCBase.jl`{ncols=2}
+- `Atoms`
+- `PeriodicCell`
+- IO functions:
+    - `convert_from_ase_atoms`
+    - `convert_to_ase_atoms`
+
+::: {.notes}
+- NQCBase contains very basics needed to describe atomic structures
+- Atoms, unit cells and structure loading. 
+:::
+
+## Potential Energy Surfaces: `NQCModels.jl`
+- `Model`
+    - Defines a potential energy surface
+    - Dimensionality: arbitrary (in principle)
+    - Methods: `potential(model, R), derivative(model, R)` (and allocating versions)
+```{.julia}
+using NQCModels
+model=AdiabaticASEModel(ase_structure)
+NQCModels.potential(model, R)
+NQCModels.derivative!(model, D, R)
+```
+
+::: {.notes}
+NQCModels contains PESs and how to evaluate them. 
+- Interface to ase, which uses different units
+- Models have energy and derivative
+- Dynamics coupling have friction methods
+:::
+
+## Statistical sampling: NQCDistributions.jl
+- `DynamicalDistribution`
+    - Container for initial conditions (positions, velocities)
+- Various distribution functions (e.g `VelocityBoltzmann`)
+```{mermaid}
+%%| fig-responsive: true
+%%| r-stretch: true
+%%| mermaid-format: svg
+%%{init: {'theme': 'default', 'themeVariables': { 'fontSize': '25px'}}}%%
+
+graph LR
+    R[Random sampling\n from distribution] --> S1(SampleableComponent:\n positions)
+    F[Analytical distribution\n functions] --> S1
+    Rfix[Fixed configuration] --> S1
+    R[Random sampling\n from distribution] --> S2(SampleableComponent:\n velocities)
+    F[Analytical distribution\n functions] --> S2
+    Rfix[Fixed configuration] --> S2
+    S1 --> DD(DynamicalDistribution)
+    S2 --> DD
+    S3(electronic state) --> DD
+```
+
+::: {.notes}
+NQCDistributions enables statistical sampling from distributions. 
+- e.g. Boltzmann distribution of velocities
+- Various 1D distributions, e.g. Wigner
+:::
+
+---
+# The core of MD: Solving differential equations
+
+## Formulating the problem
+**Classical system Hamiltonian**
+$$
+\mathrm{H=\frac{P^2}{2M}+V(R)}
+$$
+
+**Starting conditions**
+$$
+\vec{v}=\begin{bmatrix}0\\\vdots\\0\end{bmatrix}, \vec{r}=\begin{bmatrix}\vdots\end{bmatrix}
+$$
+
+**Integration scheme**
+Velocity Verlet integration
+
+## Solving Differential equations in Julia
+[**DifferentialEquations.jl**](https://docs.sciml.ai/DiffEqDocs/stable/)
+- Consistent structure for creating problems and solving them. 
+- Identical I/O for different dynamics methods. 
+- Flexible for additional considerations. 
+
+## Example: defining an `ODEProblem`
+```{mermaid}
+%%| fig-responsive: true
+%%| r-stretch: true
+%%| mermaid-format: svg
+%%{init: {'theme': 'default', 'themeVariables': { 'fontSize': '25px'}}}%%
+
+graph LR
+    I[Starting conditions] --> P[O/P/SDE Problem]
+    F[Equations of motion] --> P
+    SP[Simulation parameters] --> P
+```
+
+---
+
+**Equation of motion** (1D Harmonic oscillator)
+```julia
+function hamiltonian_1d(u; omega=omega_1, m=m1)
+  return (0.5*omega^2*m*u.x[2]^2) + (1/2 * u.x[1]^2 * m)
+end
+```
+
+**Starting parameters**
+```julia
+u_initial = ComponentVector(r=1.0, v=0.1)
+```
+
+**Resulting ODE problem:**
+```julia
+ode_problem = ODEProblem(
+    hamiltonian_1d,
+    u_initial,
+    (0.0,1000.0), # Time span
+    dt=0.1 # Time step
+)
+```
+
+---
+
+```{mermaid}
+%%| fig-responsive: true
+%%| r-stretch: true
+%%| mermaid-format: svg
+%%{init: {'theme': 'default', 'themeVariables': { 'fontSize': '25px'}}}%%
+
+graph LR
+    I[Starting conditions] --> P[O/P/SDE Problem]
+    F[Equations of motion] --> P
+    SP[Simulation parameters] --> P
+    K[Numerical integration method] --> s[solve command]
+    P --> s
+    s --> M[Ensemble processing] --> S
+    s --> R[Ensemble reduction] --> S[Solution object]
+    s <--> C[Callbacks] <--> S
+    S --> O[Plotting interface]
+    S --> OA[Reduced values]
+```
+
+# Now where does NQCDynamics come in?
+
+- converting atomic structure into an ODE problem
+- Making sense of it again on the other side
+- Handling of ensemble simulations for statistical distributions
+
+# How does NQCDynamics work?
+
+- Explain the structs set up along the way and what they do in context of ODE solution. 
+
+# How do I contribute?
+
+## A new type of output
+
+## Analysis methods for post-processing
+
+## A new model?
+
+## A new dynamics method?
+
+## Something completely different?
+
+
