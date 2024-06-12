@@ -1,0 +1,13 @@
+%%{init: {'theme': 'default', 'themeVariables': { 'fontSize': '25px'}}}%%
+
+graph LR
+    I[Starting conditions] --> P[O/P/SDE Problem]
+    F[Equations of motion] --> P
+    SP[Simulation parameters] --> P
+    K[Numerical integration method] --> s[solve command]
+    P --> s
+    s --> M[Ensemble processing] --> S
+    s --> R[Ensemble reduction] --> S[Solution object]
+    s <--> C[Callbacks] <--> S
+    S --> O[Plotting interface]
+    S --> OA[Reduced values]

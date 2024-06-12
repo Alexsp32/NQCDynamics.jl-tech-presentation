@@ -1,0 +1,22 @@
+%%{init: {'theme': 'default', 'themeVariables': { 'fontSize': '16px'}}}%%
+
+graph LR
+    subgraph DifferentialEquations.jl
+        U[ODE representation for\n DifferentialEquations.jl]
+        U --> S[Solution\n object]
+    end
+    subgraph sg1 ["NQCDynamics.jl"]
+        direction LR
+        A[Atomic structure] --> U
+        P[PES] --> U
+        I[Initial conditions] --> U
+        D[Method-specific\n ODE solver] --> U
+    end
+    subgraph sg2 ["NQCDynamics.jl"]
+        direction LR
+        S --> O[Final trajectory]
+        S --> ER[Ensemble\n statistics]
+        S --> CQ[Calculated\n quantities]
+    end
+    style sg1 fill:lightblue, stroke:black;
+    style sg2 fill:lightblue, stroke:black;
