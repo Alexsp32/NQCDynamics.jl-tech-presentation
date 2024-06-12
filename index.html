@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.43">
 
   <meta name="author" content="Alex Spears">
-  <title>index</title>
+  <title>Running nonadiabatic MD in Julia</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -390,7 +390,20 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="TOC">
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Running nonadiabatic MD in Julia</h1>
+  <p class="subtitle"><em>A look under the hood of the NQCD packages</em></p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Alex Spears 
+</div>
+</div>
+</div>
+
+  <p class="date">06.04.2024</p>
+</section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Table of contents</h2>
 <ul>
@@ -1099,8 +1112,14 @@
 </section>
 <section id="analysis-methods-for-post-processing" class="slide level2">
 <h2>Analysis methods for post-processing</h2>
-<p><span style="color:grey">src/structure.jl</span> - Basic functions for atomic structure, e.g.&nbsp;distance across PBC, centre of mass</p>
-<p><span style="color:grey">src/Analysis/Analysis.jl</span> - Submodules for analysis type, e.g.&nbsp;functions for diatomic molecules in <code>diatomic.jl</code>.</p>
+<p><span style="color:grey">src/structure.jl</span></p>
+<ul>
+<li>Basic functions for atomic structure, e.g.&nbsp;distance across PBC, centre of mass</li>
+</ul>
+<p><span style="color:grey">src/Analysis/Analysis.jl</span></p>
+<ul>
+<li>Submodules for analysis type, e.g.&nbsp;functions for diatomic molecules in <code>diatomic.jl</code>.</li>
+</ul>
 </section>
 <section id="a-new-model" class="slide level2">
 <h2>A new model?</h2>
