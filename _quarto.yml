@@ -1,12 +1,14 @@
 project:
-  title: "How do the NQCD packages work?"
+  title: "Running nonadiabatic MD in Julia"
+
+subtitle: "*A look under the hood of the NQCD packages*"
 
 author: "Alex Spears"
 date-format: "DD.MM.YYYY"
 date: "04.06.2024"
 
 toc: true
-toc-depth: 2
+toc-depth: 1
 
 execute: 
   freeze: auto
@@ -14,10 +16,15 @@ execute:
 format: 
   revealjs: 
     slideNumber: true
-    transition: slide
+    transition: fade
     controls: true
     progress: true
     aspectRatio: 16:9
     theme: [default, custom.scss]
     logo: images/logo.svg
-    footer: "NQCD tech presentation"
+    footer: "Running nonadiabatic MD in Julia"
+    width: 1920
+    height: 1080
+    auto-animate: true
+    preview-links: auto
+   
