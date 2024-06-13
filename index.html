@@ -412,6 +412,7 @@ Alex Spears
 <li><a href="#/how-does-nqcdynamics-work" id="/toc-how-does-nqcdynamics-work">How does NQCDynamics work?</a></li>
 <li><a href="#/how-do-i-scale-dynamics-up-for-many-trajectories" id="/toc-how-do-i-scale-dynamics-up-for-many-trajectories">How do I scale dynamics up for many trajectories?</a></li>
 <li><a href="#/how-can-i-contribute-to-nqcd" id="/toc-how-can-i-contribute-to-nqcd">How can I contribute to NQCD?</a></li>
+<li><a href="#/questions" id="/toc-questions">Questions?</a></li>
 </ul>
 </nav>
 </section>
@@ -1066,6 +1067,10 @@ Alex Spears
 <section>
 <section id="how-can-i-contribute-to-nqcd" class="title-slide slide level1 center">
 <h1>How can I contribute to NQCD?</h1>
+
+<img data-src="images/NQCD_Modules.svg" class="r-stretch quarto-figure-center"><p class="caption">NQCDynamics.jl and Submodules</p></section>
+<section class="slide level2">
+
 <ul>
 <li>Different packages to compartmentalise categories of functionality
 <ul>
@@ -1081,6 +1086,22 @@ Alex Spears
 <li>…</li>
 </ul></li>
 </ul>
+<aside class="notes">
+<p>NQCD package and submodule structure a bit complicated when making changes for first time.</p>
+<p>Feel free to talk to me since I’ve touched many parts of the codebase recently.</p>
+<p>Use #julia_jl channel on Slack to talk about things.</p>
+<p>Will briefly talk about most likely changes / additions.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="a-new-type-of-output" class="slide level2">
 <h2>A new type of output</h2>
@@ -1106,6 +1127,24 @@ Alex Spears
 <span id="cb23-12"><a href=""></a>        height<span class="op">=</span>output.height, normal_vector<span class="op">=</span>output.normal_vector)</span>
 <span id="cb23-13"><a href=""></a>    <span class="cf">return</span> (ν, J)</span>
 <span id="cb23-14"><a href=""></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>DynamicsOutputs act on a DiffEq solution object</p>
+<ul>
+<li>Can be either functions</li>
+<li>or Structs with functors</li>
+</ul>
+<p>I’m adding an OutputSolution output to help develop new DynamicsOutputs.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="analysis-methods-for-post-processing" class="slide level2">
 <h2>Analysis methods for post-processing</h2>
@@ -1117,6 +1156,26 @@ Alex Spears
 <ul>
 <li>Submodules for analysis type, e.g.&nbsp;functions for diatomic molecules in <code>diatomic.jl</code>.</li>
 </ul>
+<aside class="notes">
+<p>Recent addition to NQCDynamics.jl:</p>
+<ul>
+<li>Basic structure functions to add more interesting stuff to.</li>
+<li>Analysis submodule to encompass anything needed for postprocessing.
+<ul>
+<li>e.g.&nbsp;Diatomic final state quantisation.</li>
+</ul></li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="a-new-model" class="slide level2">
 <h2>A new model?</h2>
@@ -1133,6 +1192,20 @@ Alex Spears
 <ul>
 <li>same for derivative</li>
 </ul>
+<aside class="notes">
+<p>e.g.&nbsp;I’m currently working on a MACE interface which might speed up ring polymer dynamics a bit.</p>
+<p>Feel free to add more.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="a-new-dynamics-method" class="slide level2">
 <h2>A new dynamics method?</h2>
@@ -1146,13 +1219,43 @@ Alex Spears
 <li>Sanity check type hierarchy with other devs/maintainers</li>
 </ul>
 <p><a href="https://nqcd.github.io/NQCDynamics.jl/stable/" data-preview-link="true">NQCD Docs</a></p>
+<aside class="notes">
+<p>Lots of stuff could be done.</p>
+<p>Add issues on Github with ideas so we can coordinate.</p>
+<p>Explain your changes to someone else - helps make code more understandable, avoids hacks like <code>model.model</code></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section id="questions" class="title-slide slide level1 div center" style="font-weight:400">
+<h1>Questions?</h1>
+<div class="columns">
+<div class="column">
+<p><img data-src="images/qr-code.svg" style="width:66.0%"></p>
+<p>Link to this presentation</p>
+</div><div class="column">
+<p><strong>Links</strong></p>
+<p><a href="https://github.com/NQCD">GitHub Organisation</a></p>
+<p><a href="https://github.com/NQCD/NQCDynamics.jl/issues">Issues and Suggestions</a></p>
+<p><a href="https://nqcd.github.io/NQCDynamics.jl/stable/">NQCD Documentation</a></p>
+</div>
+</div>
+</section>
+
 <div class="quarto-auto-generated-content">
 <p><img src="images/logo.svg" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>Running nonadiabatic MD in Julia</p>
 </div>
 </div>
-</section></section>
 
     </div>
   </div>
