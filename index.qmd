@@ -545,6 +545,10 @@ serialise_queue!(job_queue; filename="simulation_parameters.jld2")
 ```
 
 # How can I contribute to NQCD?
+![NQCDynamics.jl and Submodules](images/NQCD_Modules.svg)
+
+---
+
 - Different packages to compartmentalise categories of functionality
     - Atomic structure
     - PESs
@@ -554,6 +558,16 @@ serialise_queue!(job_queue; filename="simulation_parameters.jld2")
     - Calculators
     - DynamicsOutputs
     - ...
+
+::: {.notes}
+NQCD package and submodule structure a bit complicated when making changes for first time. 
+
+Feel free to talk to me since I've touched many parts of the codebase recently. 
+
+Use #julia_jl channel on Slack to talk about things. 
+
+Will briefly talk about most likely changes / additions. 
+:::
 
 ## A new type of output
 ### `DynamicsOutputs`
@@ -584,6 +598,15 @@ function (output::OutputQuantisedDiatomic)(sol, i)
 end
 ```
 
+::: {.notes}
+DynamicsOutputs act on a DiffEq solution object
+
+- Can be either functions
+- or Structs with functors
+
+I'm adding an OutputSolution output to help develop new DynamicsOutputs. 
+:::
+
 ## Analysis methods for post-processing
 [src/structure.jl]{style="color:grey"}
 
@@ -592,6 +615,14 @@ end
 [src/Analysis/Analysis.jl]{style="color:grey"}
 
 - Submodules for analysis type, e.g. functions for diatomic molecules in `diatomic.jl`. 
+
+::: {.notes}
+Recent addition to NQCDynamics.jl: 
+
+- Basic structure functions to add more interesting stuff to. 
+- Analysis submodule to encompass anything needed for postprocessing. 
+    - e.g. Diatomic final state quantisation. 
+:::
 
 ## A new model?
 A model in NQCModels.jl needs to implement:
@@ -610,6 +641,12 @@ $$
 
 - same for derivative
 
+::: {.notes}
+e.g. I'm currently working on a MACE interface which might speed up ring polymer dynamics a bit. 
+
+Feel free to add more. 
+:::
+
 ## A new dynamics method?
 ![`DynamicsMethods.Method` types](images/DynamicsMethods.svg)
 
@@ -620,3 +657,33 @@ $$
 
 [NQCD Docs](https://nqcd.github.io/NQCDynamics.jl/stable/){preview-link="true"}
 
+::: {.notes}
+Lots of stuff could be done. 
+
+Add issues on Github with ideas so we can coordinate. 
+
+Explain your changes to someone else - helps make code more understandable, avoids hacks like `model.model`
+:::
+
+::: {.div style="font-weight:400"}
+# Questions?
+::: {.columns}
+::: {.column}
+![](images/qr-code.svg){width=66%}
+
+Link to this presentation
+:::
+::: {.column}
+**Links**
+
+[GitHub Organisation](https://github.com/NQCD)
+
+[Issues and Suggestions](https://github.com/NQCD/NQCDynamics.jl/issues)
+
+[NQCD Documentation](https://nqcd.github.io/NQCDynamics.jl/stable/)
+
+
+
+:::
+::: 
+:::
