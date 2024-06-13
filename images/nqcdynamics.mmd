@@ -1,4 +1,16 @@
-%%{init: {'theme': 'default', 'themeVariables': { 'fontSize': '16px'}}}%%
+%%{
+    init: {
+        'theme': 'base', 
+        'themeVariables': { 
+            'fontSize': '25px',
+            'primaryColor': '#0B6E4F',
+            'primaryBorderColor': '#14cb92',
+            'primaryTextColor': '#fff',
+            'tertiaryTextColor': '#000',
+            'fontFamily': 'Lexend'
+        }
+    }
+}%%
 
 graph LR
     subgraph DifferentialEquations.jl
@@ -18,5 +30,6 @@ graph LR
         S --> ER[Ensemble\n statistics]
         S --> CQ[Calculated\n quantities]
     end
-    style sg1 fill:lightblue, stroke:black;
-    style sg2 fill:lightblue, stroke:black;
+    style sg1 fill:#fa9f42, stroke:black;
+    style sg2 fill:#fa9f42, stroke:black;
+    style DifferentialEquations.jl fill:#279af1, stroke:black;

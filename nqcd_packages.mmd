@@ -1,4 +1,18 @@
-%%{init: {'theme': 'default', 'themeVariables': { 'fontSize': '35px', 'fontFamily' : 'Lexend'}}}%%
+%%{
+    init: {
+        'theme': 'base', 
+        'themeVariables': { 
+            'fontSize': '25px',
+            'primaryColor': '#0B6E4F',
+            'primaryBorderColor': '#14cb92',
+            'primaryTextColor': '#fff',
+            'tertiaryTextColor': '#000',
+            'fontFamily': 'Lexend',
+            'edgeLabelBackground': '#eee'
+        }
+    }
+}%%
+
 graph TB
     NQCBase.jl -- Atomic structure\n definition --> NQCDynamics.jl
     NQCBase.jl -- Basic structure\n import/export --> NQCDynamics.jl
@@ -10,3 +24,4 @@ graph TB
     NQCDistributions.jl -- Containers for\n initial conditions ---> NQCDynamics.jl
     NQCDynamics.jl -- ODE problem --> DifferentialEquations.jl
     DifferentialEquations.jl -- ODE solution --> NQCDynamics.jl
+    linkStyle 0,1,2,3,4,5,6,7,8,9 color:black
