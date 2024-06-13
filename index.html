@@ -402,7 +402,7 @@ Alex Spears
 </div>
 </div>
 
-  <p class="date">06.12.2024</p>
+  <p class="date">13.06.2024</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Table of contents</h2>
@@ -738,7 +738,7 @@ Alex Spears
 <section class="slide level2">
 
 
-<img data-src="images/Model_types.svg" class="r-stretch quarto-figure-center"><p class="caption">Model types implemented in NQCModels.jl</p></section>
+<img data-src="images/Models.svg" class="r-stretch quarto-figure-center"><p class="caption">Model types implemented in NQCModels.jl</p></section>
 <section id="statistical-sampling-nqcdistributions.jl" class="slide level2">
 <h2>Statistical sampling: NQCDistributions.jl</h2>
 
@@ -1050,21 +1050,18 @@ Alex Spears
 <div class="sourceCode" id="cb21"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href=""></a>fixed_parameters<span class="op">=</span><span class="fu">Dict</span>(</span>
 <span id="cb21-2"><a href=""></a>    <span class="st">"task"</span> <span class="op">=&gt;</span> <span class="st">"mdef+2tm"</span>,</span>
 <span id="cb21-3"><a href=""></a>    <span class="st">"trajectories"</span> <span class="op">=&gt;</span> <span class="fl">10000</span>, </span>
-<span id="cb21-4"><a href=""></a>    <span class="st">"runtime"</span> <span class="op">=&gt;</span> <span class="fl">4.7</span>u<span class="st">"ps"</span>, <span class="co"># start at -0.4ps from laser maximum </span></span>
-<span id="cb21-5"><a href=""></a>    <span class="st">"timestep"</span> <span class="op">=&gt;</span> <span class="fl">0.1</span>u<span class="st">"fs"</span>, <span class="co"># Timestep </span></span>
-<span id="cb21-6"><a href=""></a>    <span class="st">"saveat"</span> <span class="op">=&gt;</span> <span class="fl">0.1</span>u<span class="st">"fs"</span>,  </span>
-<span id="cb21-7"><a href=""></a>    <span class="st">"ensemble_algorithm"</span> <span class="op">=&gt;</span> <span class="fu">EnsembleSerial</span>(), <span class="co"># Parallelisation method to use</span></span>
-<span id="cb21-8"><a href=""></a>    <span class="st">"outputs"</span> <span class="op">=&gt;</span> (OutputInitial, OutputFinal, <span class="fu">OutputDesorptionAngle</span>(friction_atoms), <span class="fu">OutputDesorptionTrajectory</span>(friction_atoms, extra_frames<span class="op">=</span><span class="fl">200</span>)),</span>
-<span id="cb21-9"><a href=""></a>    <span class="st">"friction_atoms"</span> <span class="op">=&gt;</span> friction_atoms,</span>
-<span id="cb21-10"><a href=""></a>)</span>
-<span id="cb21-11"><a href=""></a></span>
-<span id="cb21-12"><a href=""></a>variables<span class="op">=</span><span class="fu">Dict</span>(</span>
-<span id="cb21-13"><a href=""></a>    <span class="st">"starting_temperature"</span> <span class="op">=&gt;</span> [<span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">200</span>, <span class="fl">250</span>, <span class="fl">300</span>],</span>
-<span id="cb21-14"><a href=""></a>    <span class="st">"fluence"</span> <span class="op">=&gt;</span> [<span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">40</span>,<span class="fl">60</span>,<span class="fl">80</span>,<span class="fl">100</span>,<span class="fl">120</span>],</span>
-<span id="cb21-15"><a href=""></a>)</span>
-<span id="cb21-16"><a href=""></a></span>
-<span id="cb21-17"><a href=""></a>job_queue<span class="op">=</span><span class="fu">build_job_queue</span>(fixed_parameters, variables, postprocess_queue)</span>
-<span id="cb21-18"><a href=""></a><span class="fu">serialise_queue!</span>(job_queue; filename<span class="op">=</span><span class="st">"simulation_parameters.jld2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href=""></a>    <span class="st">"runtime"</span> <span class="op">=&gt;</span> <span class="fl">4.7</span>u<span class="st">"ps"</span>, </span>
+<span id="cb21-5"><a href=""></a>    <span class="st">"timestep"</span> <span class="op">=&gt;</span> <span class="fl">0.1</span>u<span class="st">"fs"</span>,</span>
+<span id="cb21-6"><a href=""></a>    <span class="st">"ensemble_algorithm"</span> <span class="op">=&gt;</span> <span class="fu">EnsembleSerial</span>(),</span>
+<span id="cb21-7"><a href=""></a>    <span class="st">"outputs"</span> <span class="op">=&gt;</span> (OutputInitial, OutputFinal),</span>
+<span id="cb21-8"><a href=""></a>    <span class="st">"friction_atoms"</span> <span class="op">=&gt;</span> friction_atoms,</span>
+<span id="cb21-9"><a href=""></a>)</span>
+<span id="cb21-10"><a href=""></a>variables<span class="op">=</span><span class="fu">Dict</span>(</span>
+<span id="cb21-11"><a href=""></a>    <span class="st">"starting_temperature"</span> <span class="op">=&gt;</span> [<span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">200</span>, <span class="fl">250</span>, <span class="fl">300</span>],</span>
+<span id="cb21-12"><a href=""></a>    <span class="st">"fluence"</span> <span class="op">=&gt;</span> [<span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">40</span>,<span class="fl">60</span>,<span class="fl">80</span>,<span class="fl">100</span>,<span class="fl">120</span>],</span>
+<span id="cb21-13"><a href=""></a>)</span>
+<span id="cb21-14"><a href=""></a>job_queue<span class="op">=</span><span class="fu">build_job_queue</span>(fixed_parameters, variables, postprocess_queue)</span>
+<span id="cb21-15"><a href=""></a><span class="fu">serialise_queue!</span>(job_queue; filename<span class="op">=</span><span class="st">"simulation_parameters.jld2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside><ol class="aside-footnotes"><li id="fn8"><p><a href="https://github.com/NQCD/ClusterScripts.jl">GitHub</a></p></li></ol></aside></section></section>
 <section>
 <section id="how-can-i-contribute-to-nqcd" class="title-slide slide level1 center">
@@ -1139,10 +1136,8 @@ Alex Spears
 </section>
 <section id="a-new-dynamics-method" class="slide level2">
 <h2>A new dynamics method?</h2>
-<ul>
-<li>Show type tree of DynamicsMethods</li>
-</ul>
-</section>
+
+<img data-src="images/DynamicsMethods.svg" class="r-stretch quarto-figure-center"><p class="caption"><code>DynamicsMethods.Method</code> types</p></section>
 <section id="something-completely-different" class="slide level2">
 <h2>Something completely different?</h2>
 <ul>
